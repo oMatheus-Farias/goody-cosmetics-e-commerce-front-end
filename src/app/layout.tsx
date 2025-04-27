@@ -13,7 +13,6 @@ const geistSans = Geist({
 })
 const roboto = Roboto({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-roboto',
   subsets: ['latin'],
 })
 export const metadata: Metadata = {
@@ -28,10 +27,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${roboto.variable} flex h-screen flex-col antialiased`}
+        className={`${geistSans.variable} ${roboto.className} flex h-screen flex-col antialiased`}
       >
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="mt-16 flex-1">{children}</main>
         <Footer />
       </body>
     </html>
