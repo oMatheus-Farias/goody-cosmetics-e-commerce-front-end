@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Geist } from 'next/font/google'
 
+import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 
 const geistSans = Geist({
@@ -26,9 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} ${roboto.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${roboto.variable} flex h-screen flex-col antialiased`}
+      >
         <Header />
-        {children}
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   )
