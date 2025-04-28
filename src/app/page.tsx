@@ -1,9 +1,11 @@
-import { ArrowDownUp, SlidersHorizontal } from 'lucide-react'
+'use client'
+
+import { ArrowDownUp, LoaderCircle, SlidersHorizontal } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 import heroBannerDesktop from '@/assets/hero-banner-desktop.jpg'
 import heroBannerMobile from '@/assets/hero-banner-mobile.jpg'
-import kitMake from '@/assets/kit-make.png'
 import {
   Select,
   SelectContent,
@@ -13,8 +15,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { PRODUCTS_ORDENATION } from '@/constants/products-ordenation'
+import { useGetAllCategories } from '@/hooks/categories'
+import { useGetAllProductsByCategoryId } from '@/hooks/products'
 
 export default function Home() {
+  const { categories, isLoading: categoriesIsLoading } = useGetAllCategories()
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedOrder, setSelectedOrder] = useState<string>(
+    PRODUCTS_ORDENATION[0].value,
+  )
+  const { products, isLoading: productsIsLoading } =
+    useGetAllProductsByCategoryId({
+      categoryId: selectedCategory || '',
+      ordenation: selectedOrder,
+    })
+
   return (
     <div className="container mx-auto min-h-screen w-full">
       <div className="w-full px-2">
@@ -43,22 +59,51 @@ export default function Home() {
             <span className="text-sm text-black uppercase">Filtrar</span>
           </div>
 
-          <Select>
+          <Select
+            onValueChange={(value) => setSelectedCategory(value)}
+            defaultValue="all"
+          >
             <SelectTrigger className="w-[100px] rounded">
-              <SelectValue placeholder="Categoria" />
+              <SelectValue
+                placeholder="CATEGORIAS"
+                className="uppercase"
+                defaultValue="all"
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel className="uppercase">Categorias</SelectLabel>
-                <SelectItem value="all" className="uppercase">
-                  Todas
-                </SelectItem>
-                <SelectItem value="skin-care" className="uppercase">
-                  Skin Care
-                </SelectItem>
-                <SelectItem value="mouth" className="uppercase">
-                  Boca
-                </SelectItem>
+                {categoriesIsLoading ? (
+                  <SelectItem
+                    value="loading"
+                    disabled
+                    className="flex items-center gap-1 uppercase"
+                  >
+                    <LoaderCircle className="animate-spin" />
+                    Carregando...
+                  </SelectItem>
+                ) : categories && categories.length > 0 ? (
+                  categories
+                    .filter((category) => category.id) // Garante que o id não é vazio
+                    .map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={category.id}
+                        className="uppercase"
+                      >
+                        <span className="uppercase">{category.name}</span>
+                      </SelectItem>
+                    ))
+                ) : (
+                  <SelectItem
+                    value="no-category"
+                    disabled
+                    className="uppercase"
+                  >
+                    Nenhuma categoria encontrada.
+                  </SelectItem>
+                )}
+                <SelectItem value="all">TODAS</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -70,19 +115,28 @@ export default function Home() {
             <span className="text-sm text-black uppercase">Ordenar</span>
           </div>
 
-          <Select>
+          <Select
+            onValueChange={(value) => setSelectedOrder(value)}
+            defaultValue={PRODUCTS_ORDENATION[0].value}
+          >
             <SelectTrigger className="w-[120px] rounded">
-              <SelectValue placeholder="Ordem" />
+              <SelectValue
+                placeholder="Ordem"
+                defaultValue={PRODUCTS_ORDENATION[0].value}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel className="uppercase">Ordem</SelectLabel>
-                <SelectItem value="all" className="uppercase">
-                  Menor preço
-                </SelectItem>
-                <SelectItem value="skin-care" className="uppercase">
-                  Maior preço
-                </SelectItem>
+                {PRODUCTS_ORDENATION.map((ordenation) => (
+                  <SelectItem
+                    key={ordenation.id}
+                    value={ordenation.value}
+                    className="uppercase"
+                  >
+                    {ordenation.label}
+                  </SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -90,30 +144,41 @@ export default function Home() {
       </div>
 
       <section className="mt-6 grid grid-cols-2 gap-x-2 gap-y-8 px-2 hover:cursor-pointer md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {Array.from({ length: 10 }, (_, index) => (
-          <div key={index} className="flex w-full flex-col gap-1">
-            <Image
-              src={kitMake}
-              alt="Produto"
-              width={190}
-              height={190}
-              className="h-auto w-auto rounded-[10px] object-cover"
-            />
-            <div className="flex flex-col">
-              <span className="text-sm font-normal text-gray-400 uppercase">
-                Kit Make
-              </span>
-              <div className="flex items-center gap-1">
-                <span className="text-base font-normal text-black">
-                  R$ 99,90
+        {productsIsLoading && categoriesIsLoading ? (
+          <div className="col-span-2 flex items-center justify-center gap-1 rounded bg-white p-4 shadow-md md:col-span-3 lg:col-span-4 xl:col-span-5">
+            <LoaderCircle className="animate-spin" />
+            Carregando produtos...
+          </div>
+        ) : products && products.length > 0 ? (
+          products.map((product) => (
+            <div key={product.id} className="flex w-full flex-col gap-1">
+              <Image
+                src={product.productImage[0].url}
+                alt={product.name}
+                width={190}
+                height={190}
+                className="h-auto w-auto rounded-[10px] object-cover"
+              />
+              <div className="flex flex-col">
+                <span className="text-sm font-normal text-gray-400 uppercase">
+                  {product.name}
                 </span>
-                <span className="text-sm font-normal text-gray-500 line-through">
-                  R$ 199,90
-                </span>
+                <div className="flex items-center gap-1">
+                  <span className="text-base font-normal text-black">
+                    {product.currentPrice}
+                  </span>
+                  <span className="text-sm font-normal text-gray-500 line-through">
+                    {product.oldPrice}
+                  </span>
+                </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div className="col-span-2 flex items-center justify-center gap-1 rounded bg-white p-4 shadow-md md:col-span-3 lg:col-span-4 xl:col-span-5">
+            Nenhum produto encontrado.
           </div>
-        ))}
+        )}
       </section>
     </div>
   )
