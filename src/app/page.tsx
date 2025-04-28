@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 import heroBannerDesktop from '@/assets/hero-banner-desktop.jpg'
 import heroBannerMobile from '@/assets/hero-banner-mobile.jpg'
+import { ProductsList } from '@/components/products-list'
 import {
   Select,
   SelectContent,
@@ -63,7 +64,7 @@ export default function Home() {
             onValueChange={(value) => setSelectedCategory(value)}
             defaultValue="all"
           >
-            <SelectTrigger className="w-[100px] rounded">
+            <SelectTrigger className="w-[100px] rounded hover:cursor-pointer">
               <SelectValue
                 placeholder="CATEGORIAS"
                 className="uppercase"
@@ -119,7 +120,7 @@ export default function Home() {
             onValueChange={(value) => setSelectedOrder(value)}
             defaultValue={PRODUCTS_ORDENATION[0].value}
           >
-            <SelectTrigger className="w-[120px] rounded">
+            <SelectTrigger className="w-[120px] rounded hover:cursor-pointer">
               <SelectValue
                 placeholder="Ordem"
                 defaultValue={PRODUCTS_ORDENATION[0].value}
@@ -143,43 +144,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="mt-6 grid grid-cols-2 gap-x-2 gap-y-8 px-2 hover:cursor-pointer md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {productsIsLoading && categoriesIsLoading ? (
-          <div className="col-span-2 flex items-center justify-center gap-1 rounded bg-white p-4 shadow-md md:col-span-3 lg:col-span-4 xl:col-span-5">
-            <LoaderCircle className="animate-spin" />
-            Carregando produtos...
-          </div>
-        ) : products && products.length > 0 ? (
-          products.map((product) => (
-            <div key={product.id} className="flex w-full flex-col gap-1">
-              <Image
-                src={product.productImage[0].url}
-                alt={product.name}
-                width={190}
-                height={190}
-                className="h-auto w-auto rounded-[10px] object-cover"
-              />
-              <div className="flex flex-col">
-                <span className="text-sm font-normal text-gray-400 uppercase">
-                  {product.name}
-                </span>
-                <div className="flex items-center gap-1">
-                  <span className="text-base font-normal text-black">
-                    {product.currentPrice}
-                  </span>
-                  <span className="text-sm font-normal text-gray-500 line-through">
-                    {product.oldPrice}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="col-span-2 flex items-center justify-center gap-1 rounded bg-white p-4 shadow-md md:col-span-3 lg:col-span-4 xl:col-span-5">
-            Nenhum produto encontrado.
-          </div>
-        )}
-      </section>
+      <ProductsList products={products} productsIsLoading={productsIsLoading} />
     </div>
   )
 }
