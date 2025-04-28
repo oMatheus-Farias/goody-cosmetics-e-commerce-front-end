@@ -6,6 +6,7 @@ import { Geist } from 'next/font/google'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { ReactQueryProvider } from '@/contexts/react-query-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${roboto.className} flex h-screen flex-col antialiased`}
       >
-        <Header />
-        <main className="mt-16 flex-1">{children}</main>
-        <Footer />
+        <ReactQueryProvider>
+          <Header />
+          <main className="mt-16 flex-1">{children}</main>
+          <Footer />
+        </ReactQueryProvider>
       </body>
     </html>
   )
