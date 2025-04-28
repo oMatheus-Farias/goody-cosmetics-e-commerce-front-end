@@ -13,7 +13,7 @@ type TProps = {
 export function ProductsList({ products, productsIsLoading }: TProps) {
   return (
     <>
-      <section className="mt-6 grid grid-cols-2 gap-x-2 gap-y-8 px-2 hover:cursor-pointer md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <section className="mt-6 grid grid-cols-2 gap-x-2 gap-y-8 px-2 md:grid-cols-3 md:px-5 lg:grid-cols-4 xl:grid-cols-5">
         {productsIsLoading
           ? Array.from({ length: 6 }, (_, index) => (
               <ProductsListSkeleton key={index} />
@@ -21,13 +21,16 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
           : products &&
             products.length > 0 &&
             products.map((product) => (
-              <div key={product.id} className="flex w-full flex-col gap-1">
+              <div
+                key={product.id}
+                className="flex w-full flex-col gap-1 hover:cursor-pointer"
+              >
                 <Image
                   src={product.productImage[0].url}
                   alt={product.name}
                   width={190}
                   height={190}
-                  className="h-auto w-auto rounded-[10px] object-cover"
+                  className="h-48 w-48 rounded-[10px] object-cover transition-transform duration-200 ease-linear hover:scale-[1.01]"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm font-normal text-gray-400 uppercase">

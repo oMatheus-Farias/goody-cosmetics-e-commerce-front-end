@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto min-h-screen w-full">
-      <div className="w-full px-2">
+      <div className="w-full px-2 md:px-5">
         <div className="relative mt-4 h-52 w-full overflow-hidden rounded-2xl md:h-72">
           <Image
             src={heroBannerMobile}
@@ -53,7 +53,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-5 flex w-full items-center justify-start gap-3.5 px-2">
+      <div className="mt-5 flex w-full items-center justify-start gap-3.5 px-2 md:px-5">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1">
             <SlidersHorizontal className="w-3" />

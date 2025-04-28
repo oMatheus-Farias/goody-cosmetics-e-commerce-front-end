@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 z-10 flex h-14 min-h-14 w-full items-center justify-between border border-b-gray-200 bg-white/90 px-2 backdrop-blur-xs">
+    <header className="fixed top-0 left-0 z-10 flex h-14 min-h-14 w-full items-center justify-between border border-b-gray-200 bg-white/90 px-2 backdrop-blur-xs md:px-5">
       <Button variant="ghost" className="hover:cursor-pointer">
         <Menu />
       </Button>
