@@ -1,7 +1,8 @@
 'use client'
 
 import { Menu } from 'lucide-react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import { SocialMedia } from '@/components/social-media'
 import { Button } from '@/components/ui/button'
@@ -19,10 +20,17 @@ import { useGetAllCategories } from '@/hooks/categories'
 import { NavigateMenuSkeleton } from './navigate-menu-skeleton'
 
 export function NavigateMenu() {
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
   const { categories, isLoading } = useGetAllCategories()
 
+  function handleNavigation(categoryId: string, categoryName: string) {
+    router.push(`/products/${categoryId}/${categoryName}`)
+    setIsOpen(false)
+  }
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" className="hover:cursor-pointer">
           <Menu />
@@ -43,13 +51,13 @@ export function NavigateMenu() {
             <NavigateMenuSkeleton />
           ) : categories && categories.length > 0 ? (
             categories.map((category) => (
-              <Link
+              <button
                 key={category.id}
-                href={`/products/${category.id}`}
-                className="text-goodycosmetics-primary-700 hover:text-goodycosmetics-primary-800 flex h-12 items-center justify-center rounded-[6px] bg-gray-100 font-normal uppercase shadow transition-all duration-150 ease-linear hover:bg-gray-200"
+                onClick={() => handleNavigation(category.id, category.name)}
+                className="text-goodycosmetics-primary-700 hover:text-goodycosmetics-primary-800 flex h-12 items-center justify-center rounded-[6px] bg-gray-100 font-normal uppercase shadow transition-all duration-150 ease-linear hover:cursor-pointer hover:bg-gray-200"
               >
                 <span>{category.name}</span>
-              </Link>
+              </button>
             ))
           ) : (
             <p className="text-center text-sm font-light text-gray-500">
