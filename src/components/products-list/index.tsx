@@ -49,7 +49,7 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
             ))}
       </section>
 
-      {!productsIsLoading && !products && (
+      {!productsIsLoading && products && products?.length <= 0 && (
         <div className="mt-10 flex w-full items-center justify-center">
           <p className="text-center text-sm font-light text-gray-500 md:text-base">
             Nenhum produto encontrado. Verifique a categoria selecionada.
