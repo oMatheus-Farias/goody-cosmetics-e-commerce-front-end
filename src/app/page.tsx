@@ -1,11 +1,9 @@
 'use client'
 
 import { ArrowDownUp, LoaderCircle, SlidersHorizontal } from 'lucide-react'
-import Image from 'next/image'
 import { useState } from 'react'
 
-import heroBannerDesktop from '@/assets/hero-banner-desktop.jpg'
-import heroBannerMobile from '@/assets/hero-banner-mobile.jpg'
+import { HeroBannersCarousel } from '@/components/hero-banners-carousel'
 import { ProductsList } from '@/components/products-list'
 import {
   Select,
@@ -35,22 +33,7 @@ export default function Home() {
   return (
     <div className="container mx-auto min-h-screen w-full">
       <div className="w-full px-2 md:px-5">
-        <div className="relative mt-4 h-52 w-full overflow-hidden rounded-2xl md:h-72">
-          <Image
-            src={heroBannerMobile}
-            alt="Promoção de Black Friday"
-            fill
-            sizes="full"
-            className="object-cover md:hidden"
-          />
-          <Image
-            src={heroBannerDesktop}
-            alt="Promoção de Black Friday"
-            fill
-            sizes="full"
-            className="hidden object-cover md:block"
-          />
-        </div>
+        <HeroBannersCarousel />
       </div>
 
       <div className="mt-5 flex w-full items-center justify-start gap-3.5 px-2 md:px-5">
