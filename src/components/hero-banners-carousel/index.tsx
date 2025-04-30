@@ -32,7 +32,7 @@ export function HeroBannersCarousel() {
       <CarouselContent className="relative ml-0 w-full">
         {HERO_BANNER_DATA.map((item) => (
           <CarouselItem key={item.id} className="pr-0 pl-0">
-            <div className="relative h-52 w-full overflow-hidden rounded-2xl md:h-72">
+            <div className="relative h-52 w-full overflow-hidden rounded-2xl sm:h-72 lg:h-[400px]">
               <Image
                 src={item.image.srcMobile}
                 alt={item.image.alt}

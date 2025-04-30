@@ -13,7 +13,7 @@ type TProps = {
 export function ProductsList({ products, productsIsLoading }: TProps) {
   return (
     <>
-      <section className="mt-6 grid grid-cols-2 gap-x-2 gap-y-8 px-2 md:grid-cols-3 md:px-5 lg:grid-cols-4 xl:grid-cols-5">
+      <section className="mx-auto mt-6 grid max-w-[1330px] grid-cols-2 gap-x-2 gap-y-8 px-2 md:grid-cols-3 md:px-5 lg:grid-cols-4 xl:grid-cols-5">
         {productsIsLoading
           ? Array.from({ length: 6 }, (_, index) => (
               <ProductsListSkeleton key={index} />

@@ -31,12 +31,12 @@ export default function Home() {
     })
 
   return (
-    <div className="container mx-auto min-h-screen w-full">
+    <div className="mx-auto min-h-screen w-full max-w-[1800px]">
       <div className="w-full px-2 md:px-5">
         <HeroBannersCarousel />
       </div>
 
-      <div className="mt-5 flex w-full items-center justify-start gap-3.5 px-2 md:px-5">
+      <div className="mx-auto mt-5 flex w-full max-w-[1330px] items-center justify-start gap-3.5 px-2 md:px-5">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1">
             <SlidersHorizontal className="w-3" />
