@@ -44,7 +44,7 @@ export default function ProductsByCategory() {
 
   return (
     <div className="container mx-auto min-h-screen w-full">
-      <div className="w-full px-2 md:px-5">
+      <div className="mx-auto w-full max-w-[1330px] px-2 md:px-5">
         <Link
           href="/"
           className="mt-4 flex items-center gap-1 text-gray-400 uppercase transition-all duration-150 ease-linear hover:text-gray-500"
