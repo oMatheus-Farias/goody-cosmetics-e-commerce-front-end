@@ -43,7 +43,7 @@ export default function ProductsByCategory() {
   })
 
   return (
-    <div className="container mx-auto min-h-screen w-full">
+    <div className="container mx-auto h-full w-full">
       <div className="mx-auto w-full max-w-[1330px] px-2 md:px-5">
         <Link
           href="/"

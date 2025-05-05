@@ -27,12 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${roboto.className} flex h-screen flex-col antialiased`}
-      >
+      <body className={`${geistSans.variable} ${roboto.className} antialiased`}>
         <ReactQueryProvider>
-          <Header />
-          <main className="mt-16 flex-1">{children}</main>
+          <div
+            className="flex flex-col"
+            style={{
+              minHeight: 'calc(100vh - 80px)',
+            }}
+          >
+            <Header />
+            <main className="flex-1 pb-10">{children}</main>
+          </div>
           <Footer />
         </ReactQueryProvider>
       </body>

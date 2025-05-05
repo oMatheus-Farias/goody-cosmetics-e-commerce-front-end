@@ -31,7 +31,7 @@ export default function Home() {
     })
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[1800px]">
+    <div className="mx-auto w-full max-w-[1800px]">
       <div className="w-full px-2 md:px-5">
         <HeroBannersCarousel />
       </div>
