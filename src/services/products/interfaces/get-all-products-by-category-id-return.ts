@@ -1,4 +1,4 @@
-export interface IGetAllProductsByCategoryIdReturn {
+export interface IGetProductReturn {
   id: string
   name: string
   description: string
