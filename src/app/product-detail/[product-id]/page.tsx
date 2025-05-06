@@ -1,27 +1,15 @@
 'use client'
 
-import {
-  ArrowLeft,
-  ChevronLeft,
-  ChevronRight,
-  CircleAlert,
-  CircleCheck,
-} from 'lucide-react'
-import Image from 'next/image'
+import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
 import { formatCurrency } from '@/functions/format-currency'
 import { useGetProductById } from '@/hooks/products'
 
+import { ProductsAvailabilityBadge } from '../_components/products-availability-badge/inedx'
+import { ProductsDetailCarousel } from '../_components/products-detail-carousel'
 import { ProductDetailSkeleton } from '../_components/products-detail-skeleton'
 
 export default function ProductDetail() {
@@ -65,26 +53,7 @@ export default function ProductDetail() {
           <ProductDetailSkeleton />
         ) : (
           <div className="flex w-full flex-col gap-4 lg:flex-row lg:gap-10">
-            <Carousel className="w-full lg:w-2/3">
-              <CarouselContent className="relative ml-0 w-full gap-1">
-                {product &&
-                  product.productImage.map((item) => (
-                    <CarouselItem key={item.id} className="pr-0 pl-0">
-                      <div className="relative h-80 w-full overflow-hidden rounded-[10px] md:h-[500px] lg:h-[520px]">
-                        <Image
-                          src={item.url}
-                          alt={product.name}
-                          fill
-                          sizes="full"
-                          className="object-cover"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-              </CarouselContent>
-              <CarouselPrevious className="absolute left-1" />
-              <CarouselNext className="absolute right-1" />
-            </Carousel>
+            <ProductsDetailCarousel product={product} />
 
             <div className="flex flex-col lg:w-1/3">
               <div className="flex-1">
@@ -93,15 +62,9 @@ export default function ProductDetail() {
                     {product?.name}
                   </h3>
                   {product?.stockQuantity === 0 ? (
-                    <span className="flex w-fit items-center gap-1 rounded-full bg-rose-100 px-4 text-[10px] font-semibold text-rose-500 uppercase">
-                      <CircleAlert className="w-3" />
-                      Indisponível
-                    </span>
+                    <ProductsAvailabilityBadge available={false} />
                   ) : (
-                    <span className="flex w-fit items-center gap-1 rounded-full bg-emerald-100 px-4 text-[10px] font-semibold text-emerald-500 uppercase">
-                      <CircleCheck className="w-3" />
-                      Disponível
-                    </span>
+                    <ProductsAvailabilityBadge available={true} />
                   )}
                 </div>
 
