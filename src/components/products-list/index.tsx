@@ -1,12 +1,13 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { formatCurrency } from '@/functions/format-currency'
-import type { IGetAllProductsByCategoryIdReturn } from '@/services/products/interfaces'
+import type { IGetProductReturn } from '@/services/products/interfaces'
 
 import { ProductsListSkeleton } from './components/products-list-skeleton'
 
 type TProps = {
-  products: IGetAllProductsByCategoryIdReturn[] | undefined
+  products: IGetProductReturn[] | undefined
   productsIsLoading: boolean
 }
 
@@ -21,8 +22,9 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
           : products &&
             products.length > 0 &&
             products.map((product) => (
-              <div
+              <Link
                 key={product.id}
+                href={`/product-detail/${product.id}`}
                 className="flex w-full flex-col gap-1 hover:cursor-pointer"
               >
                 <Image
@@ -45,7 +47,7 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
       </section>
 
