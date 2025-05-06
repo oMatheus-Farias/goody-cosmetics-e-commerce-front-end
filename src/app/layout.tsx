@@ -6,6 +6,7 @@ import { Geist } from 'next/font/google'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { CartProvider } from '@/contexts/cart-context/provider'
 import { ReactQueryProvider } from '@/contexts/react-query-provider'
 
 const geistSans = Geist({
@@ -29,16 +30,18 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${geistSans.variable} ${roboto.className} antialiased`}>
         <ReactQueryProvider>
-          <div
-            className="flex flex-col"
-            style={{
-              minHeight: 'calc(100vh - 80px)',
-            }}
-          >
-            <Header />
-            <main className="flex-1 pb-10">{children}</main>
-          </div>
-          <Footer />
+          <CartProvider>
+            <div
+              className="flex flex-col"
+              style={{
+                minHeight: 'calc(100vh - 80px)',
+              }}
+            >
+              <Header />
+              <main className="flex-1 pb-10">{children}</main>
+            </div>
+            <Footer />
+          </CartProvider>
         </ReactQueryProvider>
       </body>
     </html>
