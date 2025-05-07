@@ -46,7 +46,7 @@ export function NavigateMenu() {
             explore nossa seleção de produtos.
           </SheetDescription>
         </SheetHeader>
-        <div className="flex max-h-[90%] w-full flex-col gap-6 overflow-y-auto [&::-webkit-scrollbar]:hidden">
+        <div className="flex max-h-[90%] w-full flex-col gap-6 overflow-y-auto">
           {isLoading ? (
             <NavigateMenuSkeleton />
           ) : categories && categories.length > 0 ? (
