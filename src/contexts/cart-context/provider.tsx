@@ -84,6 +84,7 @@ export function CartProvider({ children }: TProps): JSX.Element {
     totalGrossPrice,
     totalDiscount,
     totalPrice,
+    setProducts,
     toggleCart,
     addProduct,
     increaseProductQuantity,

@@ -8,6 +8,7 @@ export interface ICartContextValues {
   totalGrossPrice: number
   totalDiscount: number
   totalPrice: number
+  setProducts: (products: ICartProduct[]) => void
   toggleCart: () => void
   addProduct: (product: ICartProduct) => void
   increaseProductQuantity: (productId: string) => void
