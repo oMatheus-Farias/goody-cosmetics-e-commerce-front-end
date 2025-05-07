@@ -24,7 +24,7 @@ export function CartSheet() {
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
-      <SheetContent className="w-[90%]">
+      <SheetContent className="w-[86%]">
         <SheetHeader>
           <SheetTitle className="text-goodycosmetics-primary-500 text-center font-normal uppercase">
             Sua cesta
