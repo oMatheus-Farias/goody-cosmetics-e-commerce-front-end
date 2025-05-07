@@ -35,12 +35,29 @@ export function CartProvider({ children }: TProps): JSX.Element {
       })
     })
   }
+  function decreaseProductQuantity(productId: string) {
+    setProducts((prev) => {
+      return prev.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct
+        }
+        if (prevProduct.quantity === 1) {
+          return prevProduct
+        }
+        return {
+          ...prevProduct,
+          quantity: prevProduct.quantity - 1,
+        }
+      })
+    })
+  }
 
   const value: ICartContextValues = {
     isOpen,
     products,
     toggleCart,
     addProduct,
+    decreaseProductQuantity,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

@@ -4,12 +4,15 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import type { ICartProduct } from '@/contexts/cart-context/interfaces/cart-product-interface'
 import { formatCurrency } from '@/functions/format-currency'
+import { useCart } from '@/hooks/cart/use-cart'
 
 type TProps = {
   product: ICartProduct
 }
 
 export function CartItems({ product }: TProps) {
+  const { decreaseProductQuantity } = useCart()
+
   return (
     <div className="flex w-full gap-2">
       <Image
@@ -41,6 +44,7 @@ export function CartItems({ product }: TProps) {
               type="button"
               disabled={product.quantity === 1}
               aria-label="Diminuir quantidade"
+              onClick={() => decreaseProductQuantity(product.id)}
               className="bg-goodycosmetics-primary-300 hover:bg-goodycosmetics-primary-400 flex h-9 w-9 items-center justify-center rounded text-black transition-all duration-150 ease-linear hover:cursor-pointer disabled:bg-gray-200"
             >
               <ChevronLeft className="h-5 w-5" />

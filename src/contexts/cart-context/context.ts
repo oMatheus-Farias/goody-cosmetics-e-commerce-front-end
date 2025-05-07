@@ -7,6 +7,7 @@ export interface ICartContextValues {
   products: ICartProduct[]
   toggleCart: () => void
   addProduct: (product: ICartProduct) => void
+  decreaseProductQuantity: (productId: string) => void
 }
 
 export const CartContext = createContext({} as ICartContextValues)
