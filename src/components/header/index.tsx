@@ -11,7 +11,7 @@ import { Button } from '../ui/button'
 import { NavigateMenu } from './components/navigate-menu'
 
 export function Header() {
-  const { toggleCart } = useCart()
+  const { toggleCart, products } = useCart()
 
   function handleToggleCart() {
     toggleCart()
@@ -35,9 +35,14 @@ export function Header() {
           type="button"
           aria-label="Abrir cesta"
           onClick={handleToggleCart}
-          className="hover:cursor-pointer"
+          className="relative hover:cursor-pointer"
         >
           <ShoppingBasket />
+          {products.length > 0 && (
+            <span className="absolute top-0.5 -left-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white">
+              {products.length}
+            </span>
+          )}
         </Button>
       </div>
     </header>
