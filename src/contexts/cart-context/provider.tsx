@@ -64,6 +64,11 @@ export function CartProvider({ children }: TProps): JSX.Element {
       })
     })
   }
+  function removeProduct(productId: string) {
+    setProducts((prev) => {
+      return prev.filter((prevProduct) => prevProduct.id !== productId)
+    })
+  }
 
   const value: ICartContextValues = {
     isOpen,
@@ -72,6 +77,7 @@ export function CartProvider({ children }: TProps): JSX.Element {
     addProduct,
     increaseProductQuantity,
     decreaseProductQuantity,
+    removeProduct,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

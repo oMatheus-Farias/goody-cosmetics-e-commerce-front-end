@@ -9,6 +9,7 @@ export interface ICartContextValues {
   addProduct: (product: ICartProduct) => void
   increaseProductQuantity: (productId: string) => void
   decreaseProductQuantity: (productId: string) => void
+  removeProduct: (productId: string) => void
 }
 
 export const CartContext = createContext({} as ICartContextValues)

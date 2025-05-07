@@ -11,7 +11,8 @@ type TProps = {
 }
 
 export function CartItems({ product }: TProps) {
-  const { increaseProductQuantity, decreaseProductQuantity } = useCart()
+  const { increaseProductQuantity, decreaseProductQuantity, removeProduct } =
+    useCart()
 
   return (
     <div className="flex w-full gap-2">
@@ -68,6 +69,7 @@ export function CartItems({ product }: TProps) {
           size="lg"
           title="Remover produto"
           aria-label="Remover produto"
+          onClick={() => removeProduct(product.id)}
           className="group hover:cursor-pointer"
         >
           <Trash2 className="text-gray-600 transition-all duration-150 ease-linear group-hover:text-rose-500" />
