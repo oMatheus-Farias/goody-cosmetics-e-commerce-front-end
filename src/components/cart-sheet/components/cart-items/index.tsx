@@ -11,7 +11,7 @@ type TProps = {
 }
 
 export function CartItems({ product }: TProps) {
-  const { decreaseProductQuantity } = useCart()
+  const { increaseProductQuantity, decreaseProductQuantity } = useCart()
 
   return (
     <div className="flex w-full gap-2">
@@ -54,8 +54,9 @@ export function CartItems({ product }: TProps) {
             </span>
             <Button
               type="button"
-              className="bg-goodycosmetics-primary-300 hover:bg-goodycosmetics-primary-400 flex h-9 w-9 items-center justify-center rounded text-black transition-all duration-150 ease-linear hover:cursor-pointer"
               aria-label="Aumentar quantidade"
+              onClick={() => increaseProductQuantity(product.id)}
+              className="bg-goodycosmetics-primary-300 hover:bg-goodycosmetics-primary-400 flex h-9 w-9 items-center justify-center rounded text-black transition-all duration-150 ease-linear hover:cursor-pointer"
             >
               <ChevronRight className="h-5 w-5" />
             </Button>

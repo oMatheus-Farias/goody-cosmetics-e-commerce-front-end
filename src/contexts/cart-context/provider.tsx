@@ -35,6 +35,19 @@ export function CartProvider({ children }: TProps): JSX.Element {
       })
     })
   }
+  function increaseProductQuantity(productId: string) {
+    setProducts((prev) => {
+      return prev.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct
+        }
+        return {
+          ...prevProduct,
+          quantity: prevProduct.quantity + 1,
+        }
+      })
+    })
+  }
   function decreaseProductQuantity(productId: string) {
     setProducts((prev) => {
       return prev.map((prevProduct) => {
@@ -57,6 +70,7 @@ export function CartProvider({ children }: TProps): JSX.Element {
     products,
     toggleCart,
     addProduct,
+    increaseProductQuantity,
     decreaseProductQuantity,
   }
 

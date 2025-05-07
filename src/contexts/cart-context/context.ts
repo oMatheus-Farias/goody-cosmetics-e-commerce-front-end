@@ -7,6 +7,7 @@ export interface ICartContextValues {
   products: ICartProduct[]
   toggleCart: () => void
   addProduct: (product: ICartProduct) => void
+  increaseProductQuantity: (productId: string) => void
   decreaseProductQuantity: (productId: string) => void
 }
 
