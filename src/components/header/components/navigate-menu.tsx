@@ -41,7 +41,7 @@ export function NavigateMenu() {
           <SheetTitle className="text-goodycosmetics-primary-700 text-center font-light uppercase">
             Menu
           </SheetTitle>
-          <SheetDescription className="text-center">
+          <SheetDescription className="text-center font-light">
             Encontre o que precisa com facilidade! Navegue pelas categorias e
             explore nossa seleção de produtos.
           </SheetDescription>
