@@ -13,6 +13,14 @@ export function CartProvider({ children }: TProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [products, setProducts] = useState<ICartProduct[]>([])
 
+  const totalGrossPrice = products.reduce((acc, product) => {
+    return acc + product.oldPrice * product.quantity
+  }, 0)
+  const totalDiscount = products.reduce((acc, product) => {
+    return acc + (product.oldPrice - product.currentPrice) * product.quantity
+  }, 0)
+  const totalPrice = totalGrossPrice - totalDiscount
+
   function toggleCart() {
     setIsOpen((prev) => !prev)
   }
@@ -73,6 +81,9 @@ export function CartProvider({ children }: TProps): JSX.Element {
   const value: ICartContextValues = {
     isOpen,
     products,
+    totalGrossPrice,
+    totalDiscount,
+    totalPrice,
     toggleCart,
     addProduct,
     increaseProductQuantity,

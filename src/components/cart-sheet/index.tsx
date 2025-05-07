@@ -13,14 +13,14 @@ import {
 import { CartItems } from './components/cart-items'
 
 export function CartSheet() {
-  const { isOpen, toggleCart, products } = useCart()
-  const totalGrossPrice = products.reduce((acc, product) => {
-    return acc + product.oldPrice * product.quantity
-  }, 0)
-  const totalDiscount = products.reduce((acc, product) => {
-    return acc + (product.oldPrice - product.currentPrice) * product.quantity
-  }, 0)
-  const totalPrice = totalGrossPrice - totalDiscount
+  const {
+    isOpen,
+    toggleCart,
+    products,
+    totalGrossPrice,
+    totalDiscount,
+    totalPrice,
+  } = useCart()
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>

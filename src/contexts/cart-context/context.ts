@@ -5,6 +5,9 @@ import type { ICartProduct } from './interfaces/cart-product-interface'
 export interface ICartContextValues {
   isOpen: boolean
   products: ICartProduct[]
+  totalGrossPrice: number
+  totalDiscount: number
+  totalPrice: number
   toggleCart: () => void
   addProduct: (product: ICartProduct) => void
   increaseProductQuantity: (productId: string) => void
