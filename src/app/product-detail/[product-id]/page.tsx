@@ -116,7 +116,7 @@ export default function ProductDetail() {
                     <span className="mt-5 text-sm font-normal text-gray-500 uppercase">
                       Descrição
                     </span>
-                    <p className="text-sm font-light text-gray-400">
+                    <p className="overflow-y-auto text-sm font-light text-gray-400 lg:max-h-[150px]">
                       {product?.description}
                     </p>
                   </div>
@@ -127,7 +127,7 @@ export default function ProductDetail() {
                   aria-label="Adicionar à cesta"
                   disabled={product?.stockQuantity === 0}
                   onClick={handleAddToCart}
-                  className="bg-goodycosmetics-primary-500 hover:bg-goodycosmetics-primary-600 mt-10 h-12 w-full font-light text-white uppercase transition-all duration-150 ease-linear hover:cursor-pointer"
+                  className="bg-goodycosmetics-primary-500 hover:bg-goodycosmetics-primary-600 mt-10 h-12 w-full font-light text-white uppercase transition-all duration-150 ease-linear hover:cursor-pointer lg:mt-0"
                 >
                   Adicionar à cesta
                 </Button>
