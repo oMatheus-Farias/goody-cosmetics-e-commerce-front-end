@@ -92,7 +92,7 @@ export default function ProductsByCategory() {
             </div>
           </div>
         </div>
-        <div className="mt-5 w-full">
+        <div className="mx-auto mt-5 w-fit">
           <ProductsList products={products} productsIsLoading={isLoading} />
         </div>
       </div>
