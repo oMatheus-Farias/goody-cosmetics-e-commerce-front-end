@@ -125,6 +125,7 @@ export default function ProductDetail() {
                 <Button
                   type="button"
                   aria-label="Adicionar à cesta"
+                  disabled={product?.stockQuantity === 0}
                   onClick={handleAddToCart}
                   className="bg-goodycosmetics-primary-500 hover:bg-goodycosmetics-primary-600 mt-10 h-12 w-full font-light text-white uppercase transition-all duration-150 ease-linear hover:cursor-pointer"
                 >
