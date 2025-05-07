@@ -46,7 +46,7 @@ export function NavigateMenu() {
             explore nossa seleção de produtos.
           </SheetDescription>
         </SheetHeader>
-        <div className="flex w-full flex-col gap-6">
+        <div className="flex max-h-[90%] w-full flex-col gap-6 overflow-y-auto [&::-webkit-scrollbar]:hidden">
           {isLoading ? (
             <NavigateMenuSkeleton />
           ) : categories && categories.length > 0 ? (
@@ -54,7 +54,7 @@ export function NavigateMenu() {
               <button
                 key={category.id}
                 onClick={() => handleNavigation(category.id, category.name)}
-                className="text-goodycosmetics-primary-700 hover:text-goodycosmetics-primary-800 flex h-12 items-center justify-center rounded-[6px] bg-gray-100 font-normal uppercase shadow transition-all duration-150 ease-linear hover:cursor-pointer hover:bg-gray-200"
+                className="text-goodycosmetics-primary-700 hover:text-goodycosmetics-primary-800 flex h-12 min-h-12 items-center justify-center rounded-[6px] bg-gray-100 font-normal uppercase shadow transition-all duration-150 ease-linear hover:cursor-pointer hover:bg-gray-200"
               >
                 <span>{category.name}</span>
               </button>
