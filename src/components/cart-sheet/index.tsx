@@ -34,7 +34,7 @@ export function CartSheet() {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={toggleCart}>
-        <SheetContent className="w-[86%]">
+        <SheetContent className="h-full w-[86%]">
           <SheetHeader>
             <SheetTitle className="text-goodycosmetics-primary-500 text-center font-normal uppercase">
               Sua cesta
@@ -44,8 +44,8 @@ export function CartSheet() {
             </SheetDescription>
           </SheetHeader>
           {products.length > 0 ? (
-            <div className="flex h-full w-full flex-col px-4 pb-4">
-              <div className="flex w-full flex-1 flex-col gap-5">
+            <div className="flex h-full max-h-[87%] w-full flex-col px-4 pb-4">
+              <div className="mb-4 flex w-full flex-1 flex-col gap-5 overflow-y-auto">
                 {products.map((product) => (
                   <CartItems key={product.id} product={product} />
                 ))}
