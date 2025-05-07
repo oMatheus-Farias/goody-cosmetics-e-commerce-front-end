@@ -14,7 +14,7 @@ type TProps = {
 export function ProductsList({ products, productsIsLoading }: TProps) {
   return (
     <>
-      <section className="mx-auto mt-6 grid max-w-[1330px] grid-cols-2 gap-x-2 gap-y-8 px-2 md:grid-cols-3 md:px-5 lg:grid-cols-4 xl:grid-cols-5">
+      <section className="mt-6 grid max-w-[1330px] grid-cols-2 justify-items-center gap-x-2 gap-y-8 px-2 md:grid-cols-3 md:px-5 lg:grid-cols-4 lg:gap-x-6 xl:grid-cols-5 2xl:grid-cols-6">
         {productsIsLoading
           ? Array.from({ length: 6 }, (_, index) => (
               <ProductsListSkeleton key={index} />
@@ -25,7 +25,7 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
               <Link
                 key={product.id}
                 href={`/product-detail/${product.id}`}
-                className="flex w-full flex-col gap-1 hover:cursor-pointer"
+                className="flex w-fit flex-col gap-1 hover:cursor-pointer"
               >
                 <Image
                   src={product.productImage[0].url}
