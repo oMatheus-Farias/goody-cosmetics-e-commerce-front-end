@@ -26,6 +26,7 @@ export function ProductsDetailCarousel({ product }: TProps) {
                   alt={product.name}
                   fill
                   sizes="full"
+                  priority
                   className="object-cover"
                 />
               </div>

@@ -32,6 +32,7 @@ export function ProductsList({ products, productsIsLoading }: TProps) {
                   alt={product.name}
                   width={190}
                   height={190}
+                  priority
                   className="h-52 w-52 rounded-[10px] object-cover transition-transform duration-200 ease-linear hover:scale-[1.01]"
                 />
                 <div className="flex flex-col">
