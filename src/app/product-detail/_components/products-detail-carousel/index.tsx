@@ -27,7 +27,7 @@ export function ProductsDetailCarousel({ product }: TProps) {
                   fill
                   sizes="full"
                   priority
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </CarouselItem>
