@@ -45,7 +45,7 @@ export default function ProductsByCategory() {
 
   return (
     <>
-      <div className="container mx-auto h-full w-full">
+      <div className="mx-auto w-full max-w-[1800px]">
         <div className="mx-auto w-full max-w-[1330px] px-2 md:px-5">
           <Link
             href="/"
@@ -92,7 +92,7 @@ export default function ProductsByCategory() {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-5 w-fit">
+        <div className="mt-5 flex justify-center">
           <ProductsList products={products} productsIsLoading={isLoading} />
         </div>
       </div>

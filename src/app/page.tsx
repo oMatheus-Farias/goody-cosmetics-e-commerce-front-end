@@ -38,7 +38,7 @@ export default function Home() {
           <HeroBannersCarousel />
         </div>
 
-        <div className="mt-5 flex w-full max-w-[1330px] items-center justify-start gap-3.5 px-2 md:px-5">
+        <div className="mx-auto mt-5 flex w-full max-w-[1330px] items-center justify-start gap-3.5 px-2 md:px-5">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-1">
               <SlidersHorizontal className="w-3" />
@@ -129,10 +129,12 @@ export default function Home() {
           </div>
         </div>
 
-        <ProductsList
-          products={products}
-          productsIsLoading={productsIsLoading}
-        />
+        <div className="flex w-full justify-center">
+          <ProductsList
+            products={products}
+            productsIsLoading={productsIsLoading}
+          />
+        </div>
       </div>
 
       <CartSheet />
