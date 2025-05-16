@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const userNameSchema = z.object({
+export const finishOrderSchema = z.object({
   userName: z
     .string({
       required_error: 'Campo obrigatório',
@@ -12,4 +12,10 @@ export const userNameSchema = z.object({
     .max(50, {
       message: 'O nome deve ter no máximo 50 caracteres',
     }),
+  observation: z
+    .string()
+    .max(255, {
+      message: 'A observação deve ter no máximo 255 caracteres',
+    })
+    .optional(),
 })

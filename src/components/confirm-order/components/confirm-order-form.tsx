@@ -13,12 +13,13 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { env } from '@/configs/env-configs'
 import { formatCurrency } from '@/functions/format-currency'
 import { useCart } from '@/hooks/cart/use-cart'
-import { userNameSchema } from '@/schemas/user-name-schema'
+import { finishOrderSchema } from '@/schemas/finish-order-schema'
 
-export type TConfirmOrderForm = z.infer<typeof userNameSchema>
+export type TConfirmOrderForm = z.infer<typeof finishOrderSchema>
 type TProps = {
   onOpenChange: (value: boolean) => void
 }
@@ -26,9 +27,10 @@ type TProps = {
 export function ConfirmOrderForm({ onOpenChange }: TProps) {
   const { products, setProducts, totalPrice } = useCart()
   const form = useForm<TConfirmOrderForm>({
-    resolver: zodResolver(userNameSchema),
+    resolver: zodResolver(finishOrderSchema),
     defaultValues: {
       userName: '',
+      observation: '',
     },
   })
   const isPending = form.formState.isSubmitting
@@ -50,7 +52,12 @@ export function ConfirmOrderForm({ onOpenChange }: TProps) {
       )
       .join('\n\n')
 
-    const message = `*Boas notícias! Um novo pedido foi realizado!*\n\n*Data do pedido:* ${currentDate}\n\nOlá, meu nome é *${data.userName}*.\n\nGostaria de finalizar o pedido com os seguintes itens:\n\n${formattedProducts}\n\n*Total do pedido:* ${formatCurrency(
+    const observationSection =
+      data.observation && data.observation.trim().length > 0
+        ? `\n\n*Observação:*\n${data.observation.trim()}`
+        : ''
+
+    const message = `*Boas notícias! Um novo pedido foi realizado!*\n\n*Data do pedido:* ${currentDate}\n\nOlá, meu nome é *${data.userName}*.\n\nGostaria de finalizar o pedido com os seguintes itens:\n\n${formattedProducts}${observationSection}\n\n*Total do pedido:* ${formatCurrency(
       totalPrice,
     )}\n`
     const whatsappNumber = env.NEXT_PUBLIC_WHATSAPP_NUMBER
@@ -73,44 +80,82 @@ export function ConfirmOrderForm({ onOpenChange }: TProps) {
         onSubmit={form.handleSubmit(handleConfirmOrder)}
         className="flex h-full w-full flex-col"
       >
-        <FormField
-          name="userName"
-          control={form.control}
-          render={() => (
-            <FormItem className="flex-1">
-              <FormControl>
-                <div className="flex flex-col gap-1">
-                  <Label
-                    htmlFor="userName"
-                    className="text-goodycosmetics-primary-700 text-xs font-normal uppercase"
-                  >
-                    Seu nome
-                  </Label>
-                  <Input
-                    id="userName"
-                    type="text"
-                    autoFocus
-                    autoComplete="off"
-                    autoCorrect="off"
-                    spellCheck="false"
-                    aria-label="Nome"
-                    placeholder="Informe seu nome"
-                    {...form.register('userName')}
-                    className={`h-12 rounded-[10px] border bg-white font-light placeholder:text-gray-400 ${form.formState.errors.userName ? 'border-rose-500 focus-visible:ring-rose-300' : 'border-goodycosmetics-primary-400 focus-visible:ring-goodycosmetics-primary-200'}`}
-                  />
-                  {form.formState.errors.userName && (
-                    <div className="flex items-center gap-2 font-light text-rose-500">
-                      <AlertCircle className="max-h-2.5 min-h-2.5 max-w-2.5 min-w-2.5" />
-                      <FormMessage className="text-xs" />
-                    </div>
-                  )}
-                </div>
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <div className="flex w-full flex-col gap-4">
+          <FormField
+            name="userName"
+            control={form.control}
+            render={() => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <div className="flex flex-col gap-1">
+                    <Label
+                      htmlFor="userName"
+                      className="text-goodycosmetics-primary-700 text-xs font-normal uppercase"
+                    >
+                      Seu nome
+                    </Label>
+                    <Input
+                      id="userName"
+                      type="text"
+                      autoFocus
+                      autoComplete="off"
+                      autoCorrect="off"
+                      spellCheck="false"
+                      aria-label="Nome"
+                      placeholder="Informe seu nome"
+                      {...form.register('userName')}
+                      className={`h-12 rounded-[10px] border bg-white font-light placeholder:text-gray-400 ${form.formState.errors.userName ? 'border-rose-500 focus-visible:ring-rose-300' : 'border-goodycosmetics-primary-400 focus-visible:ring-goodycosmetics-primary-200'}`}
+                    />
+                    {form.formState.errors.userName && (
+                      <div className="flex items-center gap-2 font-light text-rose-500">
+                        <AlertCircle className="max-h-2.5 min-h-2.5 max-w-2.5 min-w-2.5" />
+                        <FormMessage className="text-xs" />
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="observation"
+            control={form.control}
+            render={() => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <div className="flex flex-col gap-1">
+                    <Label
+                      htmlFor="observation"
+                      className="text-goodycosmetics-primary-700 text-xs font-normal uppercase"
+                    >
+                      Observação (opcional)
+                    </Label>
+                    <Textarea
+                      id="observation"
+                      aria-label="Observação"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      spellCheck="false"
+                      aria-expanded="false"
+                      aria-valuemax={255}
+                      placeholder="Informe uma observação se necessário"
+                      {...form.register('observation')}
+                      className={`h-24 w-full resize-none rounded-[10px] border bg-white font-light placeholder:text-gray-400 ${form.formState.errors.observation ? 'border-rose-500 focus-visible:ring-rose-300' : 'border-goodycosmetics-primary-400 focus-visible:ring-goodycosmetics-primary-200'}`}
+                    />
+                    {form.formState.errors.observation && (
+                      <div className="flex items-center gap-2 font-light text-rose-500">
+                        <AlertCircle className="max-h-2.5 min-h-2.5 max-w-2.5 min-w-2.5" />
+                        <FormMessage className="text-xs" />
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
 
-        <div className="flex w-full flex-col gap-2">
+        <div className="mt-6 flex w-full flex-col gap-2 lg:mt-10">
           <Button
             type="submit"
             aria-label="Finalizar"
